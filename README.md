@@ -31,7 +31,7 @@ slots:
       read:
         - $SNAP/lib
 ```
-The lib0-1804 exposes a slot on the content interface which has the capability to read the $SNAP/lib directory.
+`lib0-1804` exposes a slot on the content interface which has the capability to read the $SNAP/lib directory.
 
 #### Utilizing the slot using a plug
 ```bash
@@ -42,7 +42,7 @@ plugs:
     default-provider: stringsnap:lib0-1804
     target: $SNAP/extra-libs
 ```
-Apart from this, we have to set the LD_LIBRARY_PATH for the stringrunner snap so that it can find the required library at the extra-libs folder created.
+Apart from this, we have to set the `LD_LIBRARY_PATH` for the stringrunner snap so that it can find the required library at the extra-libs folder created.
 ```bash
 apps:
  my-app:
@@ -63,9 +63,12 @@ sudo snap connect snap1-name:plug-name snap2-name:slot-name
 ## Notes
 1. snap_name shouldn't follow the regex `snap*`
 2. Library name should follow the regex `lib*.la`
-3. While building the dependent snap, the library will be used 
+3. For content interfaces which are responsible for exposing libraries, it's preferred to keep the interface name as `libx-yyzz` where `x` is a version number, `yyzz` represents Ubuntu yy.zz LTS used for building the snap package. 
+4. While building the dependent snap, we have to mention the absolute path of our required library in the Makefile. 
+5. Since snaps have a confined environment in which they can work, they can't use the hardcoded path of the dependent snap at runtime. To solve this issue, we establish an interface to expose dependent snap's libraries to our required snap.
 
 
 ### References
 1. https://forum.snapcraft.io/t/publishing-private-snaps/1905
 2. https://forum.snapcraft.io/t/installing-private-snap-package/5816
+3. https://snapcraft.io/docs/supported-interfaces
