@@ -1,17 +1,14 @@
-name: stringrunner # you probably want to 'snapcraft register <name>'
-base: core18 # the base snap is the execution environment for this snap
-version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
-summary: Single-line elevator pitch for your amazing snap # 79 char long summary
+name: stringrunner 
+base: core18
+version: '0.1' 
+summary: Single-line description
 description: |
-  This is my-snap's description. You have a paragraph or two to tell the
-  most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
-# grade: stable # must be 'stable' to release into candidate/stable channels
-confinement: strict # use 'strict' once you have the right plugs and slots
+  This is my-snap's description.
+grade: stable 
+confinement: strict
 
 apps:
- b-pack:
+ my-app:
    command: bin/stringrunner
    plugs:
      - lib0-1804
@@ -26,16 +23,8 @@ plugs:
     target: $SNAP/extra-libs
 
 parts:
-# parts are used to describe your application, where its various components can be found, its build and run-time requirements, and those of its dependencies.
-  stringrunner: # arbitary
-    # See 'snapcraft plugins'
-    # plugin: nil # commonly used frameworks
+  stringrunner:
     plugin: autotools
-    # source: # github https link / package name
     source: code
-    # build-packages: [] # required to build
     build-packages: [automake, pkg-config, g++, make, git, libtool]
-    # stage-packages: [] # required to run
     stage-packages: []
-    #build-snaps: 
-    # - stringsnap
