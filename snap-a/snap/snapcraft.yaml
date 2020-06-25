@@ -1,34 +1,52 @@
-name: stringsnap # you probably want to 'snapcraft register <name>'
-base: core18 # the base snap is the execution environment for this snap
-version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
-summary: Single-line elevator pitch for your amazing snap # 79 char long summary
+name: stringsnap 
+# Check using `snapcraft register <name>`
+base: core18 
+# the base snap is the execution environment for this snap
+version: '0.1' 
+# Version: typically '1.2+git' or '1.3.2'
+
+summary: A short summary which can be 78 characters long
 description: |
-  This is my-snap's description. You have a paragraph or two to tell the
-  most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
-grade: stable # must be 'stable' to release into candidate/stable channels
-confinement: strict # use 'strict' once you have the right plugs and slots
+  Long description of the snap. Preferably under 100 words
+
+grade: stable 
+# Options: devel or stable
+# devel: development version, not to be published in release channels
+# stable: publish in release channels
+
+confinement: strict 
+# Options: devmode, strict, classic
+# devmode: unrestricted access
+# strict: restrict to the environment of snap only. Outside interaction using interfaces
+# classic: not available for everyone. Community permissions needed
+
 # icon: gui/icon.png 
+# Icon should be present in `gui` folder in the parent directory
 
 slots:
   lib0-1804:
+    # Available Interfaces: https://snapcraft.io/docs/supported-interfaces
     interface: content
     content: lib0-1804
+    # Content is an arbitary name for the connection. It has to be same on slot and plug side.
     source:
       read:
         - $SNAP/lib
 
 parts:
-# parts are used to describe your application, where its various components can be found, its build and run-time requirements, and those of its dependencies.
-  stringsnap: # arbitary
-    # See 'snapcraft plugins'
-    # plugin: nil # commonly used frameworks
+# parts are used to describe your application, where its various components can be found, its build 
+# and run-time requirements, and those of its dependencies.
+  stringsnap: 
+  # name of the part can be arbitary
+
     plugin: autotools
-    # source: # github https link / package name
+    # List of available plugins can be found using `snapcraft  plugins`
+
     source: code
-    # build-packages: [] # required to build
+    # location of source files. Can be a github repository or a folder in the parent directory
+
     build-packages: [automake, pkg-config, g++, make, libtool]
+    # Packages which are used at compile time.
+
     stage-packages: [] 
-    # stage-packages: [gnome-themes-standard]
-# apps:
+    # Packages which are used at run time. Example: gnome-themes-standard
